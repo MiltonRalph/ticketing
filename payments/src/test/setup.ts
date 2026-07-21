@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 import path from 'path';
 
@@ -15,7 +15,7 @@ declare global {
 }
 
 jest.mock('../nats-wrapper');
-process.env.STRIPE_KEY;
+process.env.STRIPE_KEY = process.env.STRIPE_KEY || 'sk_test_mockkey123456789';
 
 beforeAll(async () => {
   process.env.JWT_KEY = 'asdfasdf';

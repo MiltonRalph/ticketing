@@ -27,7 +27,6 @@ const connectWithRetry = async (
 };
 
 const start = async () => {
-  console.log('Starting...');
   if (!process.env.NATS_URI) {
     throw new Error('NATS_URI must be defined');
   }
