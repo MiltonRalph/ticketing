@@ -1,0 +1,21 @@
+{
+  "name": "nats-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "publish": "ts-node-dev --rs --notify false src/publisher.ts",
+    "listen": "ts-node-dev --rs --notify false src/listener.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "nats": "^2.29.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^6.0.3"
+  }
+}

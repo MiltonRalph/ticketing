@@ -1,0 +1,65 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+build:
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: ticketing-dev-499819
+  artifacts:
+    - image: eu.gcr.io/ticketing-dev-499819/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: eu.gcr.io/ticketing-dev-499819/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          NEXT_PUBLIC_STRIPE_KEY: '{{.NEXT_PUBLIC_STRIPE_KEY}}'
+      sync:
+        manual:
+          - src: '**/*.{js,jsx,ts,tsx,css}'
+            dest: .
+          - src: 'public/**/*'
+            dest: public
+    - image: eu.gcr.io/ticketing-dev-499819/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: eu.gcr.io/ticketing-dev-499819/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: eu.gcr.io/ticketing-dev-499819/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: eu.gcr.io/ticketing-dev-499819/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
